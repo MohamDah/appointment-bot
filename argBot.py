@@ -171,7 +171,7 @@ def book_appointment(url, first_name, last_name, c_code, pnumber1, email, ar_nam
 
 if __name__ == "__main__":
     # Get day, hour, and minute from command line arguments
-    if len(sys.argv) >= 4:
+    if len(sys.argv) >= 5:
         month = sys.argv[1]
         day = sys.argv[2]
         hour = sys.argv[3]

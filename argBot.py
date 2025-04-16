@@ -172,18 +172,19 @@ def book_appointment(url, first_name, last_name, c_code, pnumber1, email, ar_nam
 if __name__ == "__main__":
     # Get day, hour, and minute from command line arguments
     if len(sys.argv) >= 4:
-        day = sys.argv[1]
-        hour = sys.argv[2]
-        minute = sys.argv[3]
-        if (any([len(i) < 2 for i in [day, hour, minute]])):
-            print("\nnumbers must be formatted correctly. \ne.g. 4 should be 04\n")
+        month = sys.argv[1]
+        day = sys.argv[2]
+        hour = sys.argv[3]
+        minute = sys.argv[4]
+        if (any([len(i) < 2 for i in [month, day, hour, minute]])):
+            print("\nnumbers must be formatted correctly: ## \ne.g. 4 should be 04\n")
             sys.exit(1)
     else:
         # Default values if not provided
-        print("Usage: python argBot.py <day> <hour> <minute>")
+        print("Usage: python argBot.py <month> <day> <hour> <minute>")
         sys.exit(1)
         
-    url = f"https://app.acuityscheduling.com/schedule/7cc5215a/appointment/63998238/calendar/6418639/datetime/2025-04-{day}T{hour}%3A{minute}%3A00%2B03%3A00"
+    url = f"https://app.acuityscheduling.com/schedule/7cc5215a/appointment/63998238/calendar/6418639/datetime/2025-{month}-{day}T{hour}%3A{minute}%3A00%2B03%3A00"
     first_name = "Maram"
     last_name = "Refeco"
     c_code = "QA"

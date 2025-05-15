@@ -1,6 +1,7 @@
 import time
 import sys
 import os
+import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,21 +11,23 @@ from selenium.webdriver.firefox.options import Options
 
 
 # Form Data
-first_name = "ALLAELDIN"
-last_name = "ELFAKI"
-c_code = "QA"
-pnumber1 = "30017823"
-email = "allaelfaki@gmail.com"
-ar_name = "علاء الدين طه عبدالله الفكي"
-pnumber2 = "+97430017823"
-card_num = "27173601174"
+def load_person_data():
+    json_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "person.json")
+    with open(json_file_path, "r", encoding="utf-8") as file:
+        return json.load(file)
 
-# first_name = "Maram"
-# last_name = "Refeco"
-# pnumber1 = "51093055"
-# email = "meroomg3@gmail.com"
-# ar_name = "مرام اسماعيل ينقمه ريفكو"
-# card_num = "29973602777"
+# Load the data
+person_data = load_person_data()
+
+first_name = person_data["first_name"]
+last_name = person_data["last_name"]
+c_code = person_data["c_code"]
+pnumber1 = person_data["pnumber1"]
+email = person_data["email"]
+ar_name = person_data["ar_name"]
+pnumber2 = person_data["pnumber2"]
+card_num = person_data["card_num"]
+
 
 
 
@@ -45,6 +48,7 @@ def initialize_driver():
 
     # Set page load strategy to 'eager' to not wait for all resources
     options.page_load_strategy = "eager"
+    
 
     return webdriver.Firefox(options=options)
 
@@ -229,35 +233,19 @@ def getNext(month, day, hour, minute):
     hour = int(hour)
     day = int(day)
 
-    if minute == 55:
-        hour, minute = times[1]
-    elif minute == 5:
-        hour, minute = times[2]
-    elif minute == 10:
-        hour, minute = times[0]
+    # if minute == 55:
+    #     hour, minute = times[1]
+    # elif minute == 5:
+    #     hour, minute = times[2]
+    # elif minute == 10:
+    #     hour, minute = times[0]
 
-        if day < 24:
-            day = day + 1
-        else:
-            day = 20
-        # if day == 20:
-        #     day = 22
-        # else:
-        #     day = 20
-        
-        
+    if day < 21:
+        day = day + 1
+    else:
+        day = 18
         
     
-    # if minute == 0 and hour == 13:
-    #     # day = day + 1
-    #     hour = 11
-    #     minute = 0
-    # elif minute < 55:
-    #     minute = minute + 5
-    # elif minute == 55:
-    #     hour = hour + 1
-    #     minute = 0
-
     minute = str(minute).zfill(2)
     hour = str(hour).zfill(2)
     day = str(day).zfill(2)
@@ -269,8 +257,8 @@ if __name__ == "__main__":
     # Get day, and month from command line arguments
     hour = "11"
     minute = "55"
-    day = "20"
-    month = "04"
+    day = "18"
+    month = "05"
 
     # Initialize the driver once outside the function
     driver = initialize_driver()
